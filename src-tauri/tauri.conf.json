@@ -10,11 +10,12 @@
     "frontendDist": "../build"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
-        "title": "progress-vault",
-        "width": 800,
-        "height": 600
+        "title": "Progress Vault",
+        "width": 1024,
+        "height": 768
       }
     ],
     "security": {
