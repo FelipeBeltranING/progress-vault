@@ -2,7 +2,10 @@ mod commands;
 mod models;
 mod storage;
 
-use commands::goals::{create_goal, delete_goal, get_goal, get_goals, update_goal};
+use commands::goals::{
+    create_goal, delete_goal, get_goal, get_goals, increment_goal_progress, toggle_subtask,
+    update_goal,
+};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -14,6 +17,8 @@ pub fn run() {
             get_goal,
             update_goal,
             delete_goal,
+            increment_goal_progress,
+            toggle_subtask,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

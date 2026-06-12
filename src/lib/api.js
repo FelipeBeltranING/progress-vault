@@ -56,3 +56,22 @@ export async function updateGoal(id, name, description) {
 export async function deleteGoal(id) {
   return invoke('delete_goal', { id });
 }
+
+/**
+ * FR-08: Increment a Numeric goal's current progress by 1.
+ * @param {string} id
+ * @returns {Promise<Object>}
+ */
+export async function incrementGoalProgress(id) {
+  return invoke('increment_goal_progress', { id });
+}
+
+/**
+ * FR-09: Toggle a sub-task's completed status within a Checklist goal.
+ * @param {string} goalId
+ * @param {string} subtaskId
+ * @returns {Promise<Object>}
+ */
+export async function toggleSubtask(goalId, subtaskId) {
+  return invoke('toggle_subtask', { goalId, subtaskId });
+}
