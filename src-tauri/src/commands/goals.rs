@@ -151,3 +151,61 @@ pub fn delete_goal(app: AppHandle, id: String) -> Result<(), String> {
 
     save_goals(&app, &goals)
 }
+
+/// FR-08: increments the current progress of a Numeric goal by 1,
+/// capped at the target value.
+#[tauri::command]
+pub fn increment_goal_progress(app: AppHandle, id: String) -> Result<Goal, String> {
+    let mut goals = load_goals(&app)?;
+
+    let goal = goals
+        .iter_mut()
+        .find(|g| g.id == id)
+        .ok_or_else(|| format!("Goal with id {id} not found"))?;
+
+    if goal.goal_type != GoalType::Numeric {
+        return Err("Only Numeric goals support incrementing progress".into());
+    }
+
+    let target = goal.target.unwrap_or(0);
+    let current = goal.current.unwrap_or(0);
+
+    goal.current = Some((current + 1).min(target));
+
+    let updated = goal.clone();
+    save_goals(&app, &goals)?;
+
+    Ok(updated)
+}
+
+/// FR-09: toggles the completed status of a sub-task within a Checklist goal.
+#[tauri::command]
+pub fn toggle_subtask(app: AppHandle, goal_id: String, subtask_id: String) -> Result<Goal, String> {
+    let mut goals = load_goals(&app)?;
+
+    let goal = goals
+        .iter_mut()
+        .find(|g| g.id == goal_id)
+        .ok_or_else(|| format!("Goal with id {goal_id} not found"))?;
+
+    if goal.goal_type != GoalType::Checklist {
+        return Err("Only Checklist goals support toggling sub-tasks".into());
+    }
+
+    let subtasks = goal
+        .subtasks
+        .as_mut()
+        .ok_or("Checklist goal has no sub-tasks")?;
+
+    let subtask = subtasks
+        .iter_mut()
+        .find(|t| t.id == subtask_id)
+        .ok_or_else(|| format!("Sub-task with id {subtask_id} not found"))?;
+
+    subtask.completed = !subtask.completed;
+
+    let updated = goal.clone();
+    save_goals(&app, &goals)?;
+
+    Ok(updated)
+}
