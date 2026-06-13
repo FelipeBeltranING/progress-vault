@@ -60,7 +60,6 @@ pub fn create_goal(
             let titles = subtask_titles.unwrap_or_default();
             let count = titles.len();
             // FR-06.3: equal distribution by default.
-            let weight = if count > 0 { 100.0 / count as f32 } else { 0.0 };
 
             let subtasks = titles
                 .into_iter()
@@ -68,7 +67,6 @@ pub fn create_goal(
                     id: Uuid::new_v4().to_string(),
                     title,
                     completed: false,
-                    weight,
                 })
                 .collect();
 
