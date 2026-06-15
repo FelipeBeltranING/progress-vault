@@ -58,7 +58,27 @@ export async function deleteGoal(id) {
 }
 
 /**
- * FR-08: Increment a Numeric goal's current progress by 1.
+ * FR-07: Add a new sub-task to an existing checklist goal.
+ * @param {string} goalId
+ * @param {string} title
+ * @returns {Promise<Object>}
+ */
+export async function addSubtask(goalId, title) {
+  return invoke('add_subtask', { goalId, title });
+}
+
+/**
+ * FR-08: Remove a sub-task from an existing checklist goal.
+ * @param {string} goalId
+ * @param {string} subtaskId
+ * @returns {Promise<Object>}
+ */
+export async function removeSubtask(goalId, subtaskId) {
+  return invoke('remove_subtask', { goalId, subtaskId });
+}
+
+/**
+ * FR-06.2: Increment a Numeric goal's current progress by 1.
  * @param {string} id
  * @returns {Promise<Object>}
  */
@@ -67,11 +87,37 @@ export async function incrementGoalProgress(id) {
 }
 
 /**
- * FR-09: Toggle a sub-task's completed status within a Checklist goal.
+ * FR-06.3.1: Toggle a sub-task's completed status within a Checklist goal.
  * @param {string} goalId
  * @param {string} subtaskId
  * @returns {Promise<Object>}
  */
 export async function toggleSubtask(goalId, subtaskId) {
   return invoke('toggle_subtask', { goalId, subtaskId });
+}
+
+/**
+ * FR-12: Toggle completion status of a Simple goal.
+ * @param {string} id
+ * @returns {Promise<Object>}
+ */
+export async function toggleGoalCompletion(id) {
+  return invoke('toggle_goal_completion', { id });
+}
+
+/**
+ * FR-10/FR-11: Get the current user config (theme, etc.).
+ * @returns {Promise<{ theme: string }>}
+ */
+export async function getConfig() {
+  return invoke('get_config');
+}
+
+/**
+ * FR-11: Save the user config with the selected theme.
+ * @param {string} theme
+ * @returns {Promise<{ theme: string }>}
+ */
+export async function setConfig(theme) {
+  return invoke('set_config', { theme });
 }

@@ -158,8 +158,8 @@
   }
 
   .modal {
-    background: white;
-    border-radius: 12px;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
     padding: 1.5rem;
     width: 90%;
     max-width: 420px;
@@ -170,27 +170,23 @@
     overflow-y: auto;
   }
 
-  h2 {
-    margin: 0;
-  }
+  h2 { margin: 0; }
 
-  .tabs {
-    display: flex;
-    gap: 0.5rem;
-  }
+  .tabs { display: flex; gap: 0.5rem; }
 
   .tabs button {
     flex: 1;
     padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-btn);
+    background: var(--color-surface);
+    color: var(--color-text);
     cursor: pointer;
   }
 
   .tabs button.active {
-    background: #c8f0c8;
-    border-color: #9bd89b;
+    background: var(--color-accent);
+    border-color: var(--color-accent-border);
   }
 
   label {
@@ -206,8 +202,10 @@
     font-family: inherit;
     font-size: 1rem;
     padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    background: var(--color-bg);
+    color: var(--color-text);
   }
 
   textarea {
@@ -226,26 +224,20 @@
     font-weight: 600;
   }
 
-  .subtask-row {
-    display: flex;
-    gap: 0.4rem;
-  }
+  .subtask-row { display: flex; gap: 0.4rem; }
 
-  .subtask-row input {
-    flex: 1;
-  }
+  .subtask-row input { flex: 1; }
 
   .remove-btn,
   .add-btn {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-btn);
+    background: var(--color-surface);
+    color: var(--color-text);
     cursor: pointer;
   }
 
-  .remove-btn {
-    padding: 0 0.6rem;
-  }
+  .remove-btn { padding: 0 0.6rem; }
 
   .add-btn {
     padding: 0.4rem;
@@ -254,7 +246,7 @@
   }
 
   .error {
-    color: #d32f2f;
+    color: var(--color-danger-text);
     margin: 0;
     font-size: 0.9rem;
   }
@@ -268,15 +260,17 @@
 
   .actions button {
     padding: 0.5rem 1.2rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--color-border);
     cursor: pointer;
     font-size: 1rem;
+    background: var(--color-surface);
+    color: var(--color-text);
   }
 
   .submit {
-    background: #c8f0c8;
-    border-color: #9bd89b;
+    background: var(--color-accent);
+    border-color: var(--color-accent-border);
   }
 
   .actions button:disabled {

@@ -1,5 +1,5 @@
 <script>
-  import { updateGoal, deleteGoal } from '$lib/api.js';
+  import { updateGoal, deleteGoal, addSubtask, removeSubtask  } from '$lib/api.js';
 
   /** @type {{ goal: any, onClose: () => void, onUpdated: (g: any) => void, onDeleted: (id: string) => void }} */
   let { goal, onClose, onUpdated, onDeleted } = $props();
@@ -12,6 +12,8 @@
 
   let editName = $state(goal.name);
   let editDescription = $state(goal.description ?? '');
+  let newSubtaskTitle = $state('');
+  let subtaskLoading = $state(false);
 
   function startEdit() {
     editName = goal.name;
@@ -59,6 +61,48 @@
     }
   }
 
+  async function handleAddSubtask() {
+  if (!newSubtaskTitle.trim()) return;
+
+  subtaskLoading = true;
+  error = '';
+
+  try {
+    const updated = await addSubtask(
+      goal.id,
+      newSubtaskTitle.trim()
+    );
+
+    goal = updated;
+    onUpdated(updated);
+
+    newSubtaskTitle = '';
+  } catch (e) {
+    error = String(e);
+  } finally {
+    subtaskLoading = false;
+  }
+}
+
+async function handleRemoveSubtask(subtaskId) {
+  subtaskLoading = true;
+  error = '';
+
+  try {
+    const updated = await removeSubtask(
+      goal.id,
+      subtaskId
+    );
+
+    goal = updated;
+    onUpdated(updated);
+  } catch (e) {
+    error = String(e);
+  } finally {
+    subtaskLoading = false;
+  }
+}
+
   function formatDate(iso) {
     return new Date(iso).toLocaleString();
   }
@@ -94,22 +138,79 @@
 
     <div class="content">
       {#if goal.goal_type === 'simple'}
-        <p class="status">{goal.completed ? '✅ Completed' : '⬜ Pending'}</p>
+  <p class="status">
+    {goal.completed ? '✅ Completed' : '⬜ Pending'}
+  </p>
       {:else if goal.goal_type === 'numeric'}
         <p class="counter">{goal.current} / {goal.target}</p>
         <div class="progress-bar">
           <div class="progress-fill" style="width: {(goal.current / goal.target) * 100}%"></div>
         </div>
       {:else if goal.goal_type === 'checklist'}
-        <ul>
-          {#each goal.subtasks as task}
-            <li>
-              <input type="checkbox" checked={task.completed} disabled />
-              {task.title}
-            </li>
-          {/each}
-        </ul>
-      {/if}
+
+  {#if editing}
+    <div class="subtask-editor">
+
+      <div class="add-subtask">
+        <input
+          type="text"
+          bind:value={newSubtaskTitle}
+          placeholder="New sub-task"
+        />
+
+        <button
+          type="button"
+          onclick={handleAddSubtask}
+          disabled={subtaskLoading}
+        >
+          Add
+        </button>
+      </div>
+
+      <ul>
+        {#each goal.subtasks as task}
+          <li>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              disabled
+            />
+
+            <span>{task.title}</span>
+
+            <button
+              type="button"
+              class="remove-subtask"
+              onclick={() => handleRemoveSubtask(task.id)}
+              disabled={subtaskLoading}
+            >
+              Remove
+            </button>
+          </li>
+        {/each}
+      </ul>
+
+    </div>
+
+  {:else}
+
+    <ul>
+      {#each goal.subtasks as task}
+        <li>
+          <input
+            type="checkbox"
+            checked={task.completed}
+            disabled
+          />
+          {task.title}
+        </li>
+      {/each}
+    </ul>
+
+  {/if}
+
+{/if}
+
     </div>
 
     {#if error}
@@ -157,8 +258,8 @@
   }
 
   .modal {
-    background: white;
-    border-radius: 12px;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
     padding: 1.5rem;
     width: 90%;
     max-width: 480px;
@@ -169,13 +270,11 @@
     overflow-y: auto;
   }
 
-  h2 {
-    margin: 0;
-  }
+  h2 { margin: 0; }
 
   .description {
     margin: 0;
-    color: #555;
+    color: var(--color-text-muted);
   }
 
   label {
@@ -191,8 +290,10 @@
     font-family: inherit;
     font-size: 1rem;
     padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    background: var(--color-bg);
+    color: var(--color-text);
   }
 
   textarea {
@@ -205,20 +306,20 @@
     justify-content: space-between;
     align-items: center;
     font-size: 0.8rem;
-    color: #888;
+    color: var(--color-text-subtle);
     margin: 0;
   }
 
   .type-badge {
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    background: #eee;
+    background: var(--color-bg-secondary);
     padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    border-radius: var(--radius-badge);
   }
 
   .content {
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--color-border);
     padding-top: 0.75rem;
   }
 
@@ -229,7 +330,7 @@
   }
 
   .progress-bar {
-    background: #eee;
+    background: var(--color-progress-bg);
     border-radius: 999px;
     height: 10px;
     overflow: hidden;
@@ -237,7 +338,7 @@
   }
 
   .progress-fill {
-    background: #9bd89b;
+    background: var(--color-progress-fill);
     height: 100%;
   }
 
@@ -256,22 +357,16 @@
     gap: 0.5rem;
   }
 
-  .weight {
-    margin-left: auto;
-    font-size: 0.8rem;
-    color: #999;
-  }
-
   .error {
-    color: #d32f2f;
+    color: var(--color-danger-text);
     margin: 0;
     font-size: 0.9rem;
   }
 
   .confirm-delete {
-    background: #fdecea;
-    border: 1px solid #f5c6c4;
-    border-radius: 8px;
+    background: var(--color-danger);
+    border: 1px solid var(--color-danger-border);
+    border-radius: var(--radius-btn);
     padding: 0.75rem;
   }
 
@@ -290,26 +385,28 @@
   .actions button,
   .confirm-actions button {
     padding: 0.5rem 1.2rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--color-border);
     cursor: pointer;
     font-size: 1rem;
+    background: var(--color-surface);
+    color: var(--color-text);
   }
 
   .submit {
-    background: #c8f0c8;
-    border-color: #9bd89b;
+    background: var(--color-accent);
+    border-color: var(--color-accent-border);
   }
 
   .danger {
-    background: #f5c6c4;
-    border-color: #e89694;
+    background: var(--color-danger);
+    border-color: var(--color-danger-border);
   }
 
   .danger-outline {
-    background: white;
-    border-color: #e89694;
-    color: #d32f2f;
+    background: var(--color-surface);
+    border-color: var(--color-danger-border);
+    color: var(--color-danger-text);
     margin-right: auto;
   }
 
@@ -317,4 +414,19 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  .subtask-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .add-subtask {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .add-subtask input { flex: 1; }
+
+  .remove-subtask { margin-left: auto; font-size: 0.85rem; }
 </style>

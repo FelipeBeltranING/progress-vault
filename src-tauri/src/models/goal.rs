@@ -14,16 +14,11 @@ pub enum GoalType {
 }
 
 /// A sub-task belonging to a Checklist goal.
-/// FR-06.3 / FR-06.3.1: supports equal or custom weight distribution.
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct SubTask {
     pub id: String,
     pub title: String,
     pub completed: bool,
-    /// Percentage weight (0.0 - 100.0) of this sub-task toward the goal's
-    /// total progress. Defaults to equal distribution (100 / number_of_subtasks)
-    /// unless customized (FR-06.3.1).
-    pub weight: f32,
 }
 
 /// A single goal tracked by the user.
@@ -49,12 +44,12 @@ pub struct Goal {
     pub current: Option<i64>,
 
     // --- Checklist goal fields (GoalType::Checklist) ---
-    /// FR-09/FR-10: sub-tasks with individual weights.
+    /// FR-06.3: sub-tasks for checklist goals.
     pub subtasks: Option<Vec<SubTask>>,
 }
 
 impl Goal {
-    /// FR-11: calculates the total completion percentage (0.0 - 100.0)
+    /// Calculates the total completion percentage (0.0 - 100.0)
     /// based on the goal's type.
     pub fn progress_percentage(&self) -> f32 {
         match self.goal_type {
@@ -76,12 +71,10 @@ impl Goal {
             }
             GoalType::Checklist => {
                 match &self.subtasks {
-                    Some(subtasks) if !subtasks.is_empty() => subtasks
-                        .iter()
-                        .filter(|t| t.completed)
-                        .map(|t| t.weight)
-                        .sum::<f32>()
-                        .clamp(0.0, 100.0),
+                    Some(subtasks) if !subtasks.is_empty() => {
+                        let completed = subtasks.iter().filter(|t| t.completed).count();
+                        (completed as f32 / subtasks.len() as f32 * 100.0).clamp(0.0, 100.0)
+                    }
                     _ => 0.0,
                 }
             }
