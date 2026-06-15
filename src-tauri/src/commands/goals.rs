@@ -11,7 +11,7 @@ use uuid::Uuid;
 /// - `goal_type`: "simple" | "numeric" | "checklist"
 /// - `target`: required if goal_type is "numeric" (FR-06.2)
 /// - `subtask_titles`: optional list of sub-task names if goal_type is
-///   "checklist" (FR-06.3). Weights are distributed equally by default.
+///   "checklist" (FR-06.3). Progress is distributed equally among all sub-tasks.
 #[tauri::command]
 pub fn create_goal(
     app: AppHandle,
@@ -58,7 +58,6 @@ pub fn create_goal(
         }
         GoalType::Checklist => {
             let titles = subtask_titles.unwrap_or_default();
-            let count = titles.len();
             // FR-06.3: equal distribution by default.
 
             let subtasks = titles
@@ -150,7 +149,7 @@ pub fn delete_goal(app: AppHandle, id: String) -> Result<(), String> {
     save_goals(&app, &goals)
 }
 
-/// FR-08: increments the current progress of a Numeric goal by 1,
+/// FR-06.3: increments the current progress of a Numeric goal by 1,
 /// capped at the target value.
 #[tauri::command]
 pub fn increment_goal_progress(app: AppHandle, id: String) -> Result<Goal, String> {
@@ -203,6 +202,109 @@ pub fn toggle_subtask(app: AppHandle, goal_id: String, subtask_id: String) -> Re
     subtask.completed = !subtask.completed;
 
     let updated = goal.clone();
+    save_goals(&app, &goals)?;
+
+    Ok(updated)
+}
+
+
+#[tauri::command]
+pub fn add_subtask(
+    app: AppHandle,
+    goal_id: String,
+    title: String,
+) -> Result<Goal, String> {
+    if title.trim().is_empty() {
+        return Err("Sub-task title cannot be empty".into());
+    }
+
+    let mut goals = load_goals(&app)?;
+
+    let goal = goals
+        .iter_mut()
+        .find(|g| g.id == goal_id)
+        .ok_or_else(|| format!("Goal with id {goal_id} not found"))?;
+
+    if goal.goal_type != GoalType::Checklist {
+        return Err("Only Checklist goals support sub-tasks".into());
+    }
+
+    let subtasks = goal
+        .subtasks
+        .as_mut()
+        .ok_or("Checklist goal has no sub-tasks list")?;
+
+    subtasks.push(SubTask {
+        id: Uuid::new_v4().to_string(),
+        title,
+        completed: false,
+    });
+
+    let updated = goal.clone();
+
+    save_goals(&app, &goals)?;
+
+    Ok(updated)
+}
+
+#[tauri::command]
+pub fn remove_subtask(
+    app: AppHandle,
+    goal_id: String,
+    subtask_id: String,
+) -> Result<Goal, String> {
+    let mut goals = load_goals(&app)?;
+
+    let goal = goals
+        .iter_mut()
+        .find(|g| g.id == goal_id)
+        .ok_or_else(|| format!("Goal with id {goal_id} not found"))?;
+
+    if goal.goal_type != GoalType::Checklist {
+        return Err("Only Checklist goals support sub-tasks".into());
+    }
+
+    let subtasks = goal
+        .subtasks
+        .as_mut()
+        .ok_or("Checklist goal has no sub-tasks")?;
+
+    let original_len = subtasks.len();
+
+    subtasks.retain(|s| s.id != subtask_id);
+
+    if subtasks.len() == original_len {
+        return Err(format!("Sub-task with id {subtask_id} not found"));
+    }
+
+    let updated = goal.clone();
+
+    save_goals(&app, &goals)?;
+
+    Ok(updated)
+}
+
+#[tauri::command]
+pub fn toggle_goal_completion(
+    app: AppHandle,
+    id: String,
+) -> Result<Goal, String> {
+    let mut goals = load_goals(&app)?;
+
+    let goal = goals
+        .iter_mut()
+        .find(|g| g.id == id)
+        .ok_or_else(|| format!("Goal with id {id} not found"))?;
+
+    if goal.goal_type != GoalType::Simple {
+        return Err("Only Simple goals support completion toggling".into());
+    }
+
+    let current = goal.completed.unwrap_or(false);
+    goal.completed = Some(!current);
+
+    let updated = goal.clone();
+
     save_goals(&app, &goals)?;
 
     Ok(updated)

@@ -1,5 +1,5 @@
 <script>
-  import { incrementGoalProgress, toggleSubtask } from '$lib/api.js';
+  import { incrementGoalProgress, toggleSubtask , toggleGoalCompletion} from '$lib/api.js';
 
   /** @type {{ goal: any, onUpdate: (updated: any) => void, onOpen: () => void }} */
   let { goal, onUpdate, onOpen } = $props();
@@ -26,6 +26,17 @@
       console.error(err);
     }
   }
+
+  async function handleToggleCompletion(e) {
+  e.stopPropagation();
+
+  try {
+    const updated = await toggleGoalCompletion(goal.id);
+    onUpdate(updated);
+  } catch (err) {
+    console.error(err);
+  }
+}
 </script>
 
 <div class="card" role="button" tabindex="0" onclick={onOpen} onkeydown={(e) => e.key === 'Enter' && onOpen()}>
@@ -33,6 +44,12 @@
 
   {#if goal.goal_type === 'simple'}
     <p class="status">{goal.completed ? '✅ Completed' : '⬜ Pending'}</p>
+     <button
+    class="toggle-simple"
+    onclick={handleToggleCompletion}
+  >
+    ✓
+  </button>
   {:else if goal.goal_type === 'numeric'}
     <p class="counter">{goal.current} / {goal.target}</p>
     <button class="increment" onclick={handleIncrement} disabled={goal.current >= goal.target}>
@@ -56,8 +73,8 @@
 
 <style>
   .card {
-    background: #f0f0f0;
-    border-radius: 12px;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-card);
     padding: 1rem;
     text-align: left;
     height: 220px;
@@ -68,7 +85,7 @@
   }
 
   .card:hover {
-    background: #e8e8e8;
+    background: var(--color-bg-hover);
   }
 
   .card h3 {
@@ -84,15 +101,16 @@
   .increment {
     align-self: flex-start;
     padding: 0.4rem 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-btn);
+    background: var(--color-surface);
+    color: var(--color-text);
     cursor: pointer;
     font-size: 0.9rem;
   }
 
   .increment:hover:not(:disabled) {
-    background: #e0e0e0;
+    background: var(--color-bg-hover);
   }
 
   .increment:disabled {
@@ -113,5 +131,21 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  .toggle-simple {
+    opacity: 0;
+    align-self: flex-start;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-btn);
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .card:hover .toggle-simple {
+    opacity: 1;
   }
 </style>

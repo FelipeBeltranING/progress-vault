@@ -14,7 +14,6 @@ pub enum GoalType {
 }
 
 /// A sub-task belonging to a Checklist goal.
-/// FR-06.3 / FR-06.3.1: supports equal or custom weight distribution.
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct SubTask {
     pub id: String,
@@ -45,7 +44,7 @@ pub struct Goal {
     pub current: Option<i64>,
 
     // --- Checklist goal fields (GoalType::Checklist) ---
-    /// FR-09/FR-10: sub-tasks with individual weights.
+    /// FR-06.3: sub-tasks for checklist goals.
     pub subtasks: Option<Vec<SubTask>>,
 }
 

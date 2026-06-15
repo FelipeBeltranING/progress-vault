@@ -5,6 +5,46 @@
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     %sveltekit.head%
+    <style>
+      /* Default theme — overridden at runtime by applyTheme() */
+      :root {
+        --color-bg:            #ffffff;
+        --color-bg-secondary:  #f0f0f0;
+        --color-bg-hover:      #e8e8e8;
+        --color-surface:       #ffffff;
+        --color-border:        #cccccc;
+        --color-border-accent: #9bd89b;
+
+        --color-text:          #111111;
+        --color-text-muted:    #666666;
+        --color-text-subtle:   #888888;
+
+        --color-accent:        #c8f0c8;
+        --color-accent-border: #9bd89b;
+        --color-danger:        #f5c6c4;
+        --color-danger-border: #e89694;
+        --color-danger-text:   #d32f2f;
+
+        --color-progress-bg:   #eeeeee;
+        --color-progress-fill: #9bd89b;
+
+        --radius-card:  12px;
+        --radius-btn:   8px;
+        --radius-input: 6px;
+        --radius-badge: 4px;
+
+        --font-base: system-ui, sans-serif;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: var(--font-base);
+        background: var(--color-bg);
+        color: var(--color-text);
+      }
+    </style>
   </head>
   <body data-sveltekit-preload-data="hover">
     <div style="display: contents">%sveltekit.body%</div>
