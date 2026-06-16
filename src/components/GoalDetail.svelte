@@ -1,5 +1,6 @@
 <script>
   import { updateGoal, deleteGoal, addSubtask, removeSubtask  } from '$lib/api.js';
+  import { fade } from 'svelte/transition';   
 
   /** @type {{ goal: any, onClose: () => void, onUpdated: (g: any) => void, onDeleted: (id: string) => void }} */
   let { goal, onClose, onUpdated, onDeleted } = $props();
@@ -109,7 +110,7 @@ async function handleRemoveSubtask(subtaskId) {
 </script>
 
 <div
-  class="overlay"
+  class="overlay"  transition:fade={{ duration: 200 }}
   role="presentation"
   onclick={onClose}
   onkeydown={(e) => e.key === 'Escape' && onClose()}
@@ -386,7 +387,7 @@ async function handleRemoveSubtask(subtaskId) {
   .confirm-actions button {
     padding: 0.5rem 1.2rem;
     border-radius: var(--radius-btn);
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     cursor: pointer;
     font-size: 1rem;
     background: var(--color-surface);

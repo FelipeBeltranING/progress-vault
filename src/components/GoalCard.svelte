@@ -77,17 +77,19 @@
     border-radius: var(--radius-card);
     padding: 1rem;
     text-align: left;
-    height: 220px;
+    height:360px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     cursor: pointer;
+    transition: background 0.15s, transform 0.15s, border-color 0.15s;
   }
 
   .card:hover {
-    background: var(--color-bg-hover);
-  }
-
+  background: var(--color-bg-hover);
+  border-color: var(--color-border);
+  transform: translateY(-3px);
+}
   .card h3 {
     margin: 0;
     font-size: 1.1rem;

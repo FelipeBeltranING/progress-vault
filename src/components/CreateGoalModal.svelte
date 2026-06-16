@@ -1,5 +1,6 @@
 <script>
   import { createGoal } from '$lib/api.js';
+  import { fade } from 'svelte/transition';
 
   /** @type {{ onClose: () => void, onCreated: (goal: any) => void }} */
   let { onClose, onCreated } = $props();
@@ -72,7 +73,7 @@
 </script>
 
 <div
-  class="overlay"
+  class="overlay" transition:fade={{ duration: 200 }}
   role="presentation"
   onclick={onClose}
   onkeydown={(e) => e.key === 'Escape' && onClose()}
@@ -177,7 +178,7 @@
   .tabs button {
     flex: 1;
     padding: 0.5rem;
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     border-radius: var(--radius-btn);
     background: var(--color-surface);
     color: var(--color-text);
@@ -202,7 +203,7 @@
     font-family: inherit;
     font-size: 1rem;
     padding: 0.5rem;
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     border-radius: var(--radius-input);
     background: var(--color-bg);
     color: var(--color-text);
@@ -230,7 +231,7 @@
 
   .remove-btn,
   .add-btn {
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     border-radius: var(--radius-btn);
     background: var(--color-surface);
     color: var(--color-text);
@@ -261,7 +262,7 @@
   .actions button {
     padding: 0.5rem 1.2rem;
     border-radius: var(--radius-btn);
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     cursor: pointer;
     font-size: 1rem;
     background: var(--color-surface);
