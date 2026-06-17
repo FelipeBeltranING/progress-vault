@@ -29,10 +29,7 @@
         --color-danger:        #fff0f0;
         --color-danger-border: #cc0000;
         --color-danger-text:   #cc0000;
-
-        --color-progress-bg:   #eeeeee;
-        --color-progress-fill: #000000;
-
+       
         --radius-card:  12px;
         --radius-btn:   999px;
         --radius-input: 8px;
@@ -45,6 +42,12 @@
 
         --eyes-bg: #e4e4e4;
         --eyes-pupil: #000000;
+
+        --color-success:        #c8f7d4;
+        --color-success-hover:  #b0f0c0;
+        --color-success-border: #2e9e3f;
+        --color-progress-bg:    #eeeeee;
+        --color-progress-fill:  #4cd964;
       }
 
       *, *::before, *::after { box-sizing: border-box; }
@@ -61,19 +64,7 @@
 
    }
 
-  /* DEBUG: center guideline — remove when done adjusting layout */
-  html::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 2px;
-    background: red;
-    z-index: 2147483647;
-    pointer-events: none;
-  }
-}
+
     </style>
   </head>
   <body data-sveltekit-preload-data="hover" style="overflow: hidden;">

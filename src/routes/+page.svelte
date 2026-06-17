@@ -10,6 +10,7 @@
   import DashboardView from '../components/DashboardView.svelte';
   import WelcomeScreen from '../components/WelcomeScreen.svelte';
   import { fade } from 'svelte/transition';
+  import { flip } from 'svelte/animate';
 
   /** @type {any[]} */
   let goals = $state([]);
@@ -133,17 +134,19 @@
           <p class="empty">No goals match the current filters.</p>
         {:else}
           <div class="grid">
-            {#each visibleGoals as goal (goal.id)}
-              <GoalCard
-                {goal}
-                onUpdate={(updated) => {
-                  goals = goals.map((g) => (g.id === updated.id ? updated : g));
-                  if (selectedGoal?.id === updated.id) selectedGoal = updated;
-                }}
-                onOpen={() => (selectedGoal = goal)}
-              />
-            {/each}
-          </div>
+    {#each visibleGoals as goal (goal.id)}
+    <div animate:flip={{ duration: 1500 }} transition:fade={{ duration:750}}>
+      <GoalCard
+        {goal}
+        onUpdate={(updated) => {
+          goals = goals.map((g) => (g.id === updated.id ? updated : g));
+          if (selectedGoal?.id === updated.id) selectedGoal = updated;
+        }}
+        onOpen={() => (selectedGoal = goal)}
+      />
+    </div>
+  {/each}
+</div>
         {/if}
       </main>
 
@@ -262,6 +265,25 @@
   align-items: center;
   overflow-y: auto;
 }
+
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border-radius: var(--radius-btn);
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: var(--color-border-muted);
+  border-radius: var(--radius-btn);
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border);
+}
+
   .error { color: var(--color-danger-text); }
 
   .empty {

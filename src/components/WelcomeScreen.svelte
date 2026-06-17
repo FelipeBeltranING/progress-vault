@@ -190,7 +190,7 @@
     letter-spacing: -0.01em;
     color: var(--color-text);
     text-align: center;
-    margin: 0;
+    margin: 1rem;
     line-height: 5;
   }
 
@@ -200,7 +200,7 @@
 
   .placeholder {
   width: 240px;
-  height: 180px;
+  height: 100px;
   flex-shrink: 0;
   display: flex;
   align-items: center;

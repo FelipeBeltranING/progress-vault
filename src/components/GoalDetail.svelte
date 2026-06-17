@@ -140,7 +140,7 @@ async function handleRemoveSubtask(subtaskId) {
     <div class="content">
       {#if goal.goal_type === 'simple'}
   <p class="status">
-    {goal.completed ? '✅ Completed' : '⬜ Pending'}
+    {goal.completed ? 'Completed' : 'Pending'}
   </p>
       {:else if goal.goal_type === 'numeric'}
         <p class="counter">{goal.current} / {goal.target}</p>
@@ -153,43 +153,44 @@ async function handleRemoveSubtask(subtaskId) {
     <div class="subtask-editor">
 
       <div class="add-subtask">
-        <input
-          type="text"
-          bind:value={newSubtaskTitle}
-          placeholder="New sub-task"
-        />
+  <input
+    type="text"
+    bind:value={newSubtaskTitle}
+    placeholder="New sub-task"
+  />
 
-        <button
-          type="button"
-          onclick={handleAddSubtask}
-          disabled={subtaskLoading}
-        >
-          Add
-        </button>
-      </div>
+  <button
+    type="button"
+    class="add-subtask-btn"
+    onclick={handleAddSubtask}
+    disabled={subtaskLoading}
+  >
+    Add
+  </button>
+</div>
 
-      <ul>
-        {#each goal.subtasks as task}
-          <li>
-            <input
-              type="checkbox"
-              checked={task.completed}
-              disabled
-            />
+<ul>
+  {#each goal.subtasks as task}
+    <li>
+      <input
+        type="checkbox"
+        checked={task.completed}
+        disabled
+      />
 
-            <span>{task.title}</span>
+      <span class="subtask-title">{task.title}</span>
 
-            <button
-              type="button"
-              class="remove-subtask"
-              onclick={() => handleRemoveSubtask(task.id)}
-              disabled={subtaskLoading}
-            >
-              Remove
-            </button>
-          </li>
-        {/each}
-      </ul>
+      <button
+        type="button"
+        class="remove-subtask-btn"
+        onclick={() => handleRemoveSubtask(task.id)}
+        disabled={subtaskLoading}
+      >
+        Remove
+      </button>
+    </li>
+  {/each}
+</ul>
 
     </div>
 
@@ -349,7 +350,7 @@ async function handleRemoveSubtask(subtaskId) {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 1rem;
   }
 
   li {
@@ -365,23 +366,23 @@ async function handleRemoveSubtask(subtaskId) {
   }
 
   .confirm-delete {
-    background: var(--color-danger);
-    border: 1px solid var(--color-danger-border);
-    border-radius: var(--radius-btn);
-    padding: 0.75rem;
-  }
+  background: var(--color-danger);
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-btn);
+  padding: 0.75rem;
+  text-align: center;
+}
 
-  .confirm-delete p {
-    margin: 0 0 0.5rem 0;
-    font-size: 0.9rem;
-  }
-
-  .confirm-actions,
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-  }
+.confirm-delete p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+.actions,
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
 
   .actions button,
   .confirm-actions button {
@@ -423,11 +424,53 @@ async function handleRemoveSubtask(subtaskId) {
   }
 
   .add-subtask {
-    display: flex;
-    gap: 0.5rem;
-  }
+  display: flex;
+  gap: 0.5rem;  
+   margin-bottom: 1rem;
+   margin-top: 1rem;
+}
 
-  .add-subtask input { flex: 1; }
+.add-subtask input {
+  flex: 1;
+}
 
-  .remove-subtask { margin-left: auto; font-size: 0.85rem; }
+.add-subtask-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--radius-btn);
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-accent);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.add-subtask-btn:hover:not(:disabled) {
+  transform: scale(1.04);
+}
+
+.subtask-title {
+  flex: 1;
+}
+
+.remove-subtask-btn {
+  margin-left: auto;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-btn);
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.remove-subtask-btn:hover:not(:disabled) {
+  transform: scale(1.04);
+}
+
+.remove-subtask-btn { margin-left: auto; font-size: 0.85rem; }
 </style>

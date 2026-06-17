@@ -74,12 +74,18 @@ export function applyPrefs(goals, sort, statusFilter, typeFilter) {
   }
 
   // --- Sort ---
-  result.sort((a, b) => {
-    if (sort === 'date_asc')  return new Date(a.created_at) - new Date(b.created_at);
-    if (sort === 'date_desc') return new Date(b.created_at) - new Date(a.created_at);
-    if (sort === 'type')      return (TYPE_ORDER[a.goal_type] ?? 99) - (TYPE_ORDER[b.goal_type] ?? 99);
-    return 0;
-  });
+result.sort((a, b) => {
+  // Completed goals always sink to the bottom, regardless of active sort
+  const aCompleted = isCompleted(a) ? 1 : 0;
+  const bCompleted = isCompleted(b) ? 1 : 0;
+  if (aCompleted !== bCompleted) return aCompleted - bCompleted;
+
+  if (sort === 'date_asc')  return new Date(a.created_at) - new Date(b.created_at);
+  if (sort === 'date_desc') return new Date(b.created_at) - new Date(a.created_at);
+  if (sort === 'type')      return (TYPE_ORDER[a.goal_type] ?? 99) - (TYPE_ORDER[b.goal_type] ?? 99);
+  return 0;
+});
 
   return result;
 }
+

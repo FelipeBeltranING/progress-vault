@@ -8,22 +8,26 @@ export const THEMES = {
     '--color-bg-hover':      '#222222',
     '--color-surface':       '#141414',
 
-    '--color-border':        '#bdbaba',
+    '--color-border':        '#ffffff',
     '--color-border-muted':  '#333333',
-    '--color-border-accent': '#bdbaba',
+    '--color-border-accent': '#ffffff',
 
     '--color-text':          '#ffffff',
     '--color-text-muted':    '#aaaaaa',
     '--color-text-subtle':   '#666666',
 
     '--color-accent':        '#1a1a1a',
-    '--color-accent-border': '#bdbaba',
+    '--color-accent-border': '#ffffff',
     '--color-danger':        '#1a0000',
     '--color-danger-border': '#ff4444',
     '--color-danger-text':   '#ff6666',
 
     '--color-progress-bg':   '#222222',
-    '--color-progress-fill': '#ffffff',
+    '--color-progress-fill': '#4caf50',
+
+    '--color-success':        '#1a3d20',
+    '--color-success-hover':  '#2f7140',
+    '--color-success-border': '#4caf50',
 
     '--radius-card':  '12px',
     '--radius-btn':   '999px',
@@ -33,13 +37,8 @@ export const THEMES = {
     '--border-width': '2px',
 
     '--font-base': "'Inter', system-ui, sans-serif",
-    
-    // Eyes theme
-    '--eyes-bg': '#ffffff',
-    '--eyes-pupil': '#000000',
   },
 };
-
 /**
  * Applies a theme by injecting a <style> tag into <head>.
  * If the theme is 'default', clears any overrides and lets
