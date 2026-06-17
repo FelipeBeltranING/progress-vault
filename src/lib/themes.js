@@ -3,33 +3,42 @@
 /** @type {Record<string, Record<string, string>>} */
 export const THEMES = {
   dark: {
-    '--color-bg':            '#1a1a1a',
-    '--color-bg-secondary':  '#2a2a2a',
-    '--color-bg-hover':      '#333333',
-    '--color-surface':       '#242424',
-    '--color-border':        '#444444',
-    '--color-border-accent': '#4a9e4a',
+    '--color-bg':            '#0f0f0f',
+    '--color-bg-secondary':  '#1a1a1a',
+    '--color-bg-hover':      '#222222',
+    '--color-surface':       '#141414',
 
-    '--color-text':          '#eeeeee',
+    '--color-border':        '#ffffff',
+    '--color-border-muted':  '#333333',
+    '--color-border-accent': '#ffffff',
+
+    '--color-text':          '#ffffff',
     '--color-text-muted':    '#aaaaaa',
-    '--color-text-subtle':   '#777777',
+    '--color-text-subtle':   '#666666',
 
-    '--color-accent':        '#2d5a2d',
-    '--color-accent-border': '#4a9e4a',
-    '--color-danger':        '#5a2d2d',
-    '--color-danger-border': '#9e4a4a',
-    '--color-danger-text':   '#f28b82',
+    '--color-accent':        '#1a1a1a',
+    '--color-accent-border': '#ffffff',
+    '--color-danger':        '#1a0000',
+    '--color-danger-border': '#ff4444',
+    '--color-danger-text':   '#ff6666',
 
-    '--color-progress-bg':   '#333333',
-    '--color-progress-fill': '#4a9e4a',
+    '--color-progress-bg':   '#222222',
+    '--color-progress-fill': '#4caf50',
+
+    '--color-success':        '#1a3d20',
+    '--color-success-hover':  '#2f7140',
+    '--color-success-border': '#4caf50',
 
     '--radius-card':  '12px',
-    '--radius-btn':   '8px',
-    '--radius-input': '6px',
+    '--radius-btn':   '999px',
+    '--radius-input': '8px',
     '--radius-badge': '4px',
+
+    '--border-width': '2px',
+
+    '--font-base': "'Inter', system-ui, sans-serif",
   },
 };
-
 /**
  * Applies a theme by injecting a <style> tag into <head>.
  * If the theme is 'default', clears any overrides and lets

@@ -1,6 +1,6 @@
 <script>
   import { SORT_OPTIONS, STATUS_FILTERS, TYPE_FILTERS } from '$lib/dashboardPrefs.js';
-
+  import { fade } from 'svelte/transition';
   const APP_VERSION = '0.2.0';
 
   /**
@@ -18,7 +18,7 @@
 </script>
 
 <div
-  class="overlay"
+  class="overlay" transition:fade={{ duration: 200 }}
   role="presentation"
   onclick={onClose}
   onkeydown={(e) => e.key === 'Escape' && onClose()}
@@ -31,7 +31,7 @@
     onclick={(e) => e.stopPropagation()}
   >
     <div class="modal-header">
-      <h2 id="dashboard-config-title">Settings</h2>
+      <h2 id="dashboard-config-title">View Settings</h2>
       <button class="close-btn" onclick={onClose}>✕</button>
     </div>
 
@@ -163,7 +163,7 @@
 
   .option-btn {
     padding: 0.35rem 0.85rem;
-    border: 1px solid var(--color-border);
+    border: 2px solid var(--color-border);
     border-radius: var(--radius-btn);
     background: var(--color-bg-secondary);
     color: var(--color-text);

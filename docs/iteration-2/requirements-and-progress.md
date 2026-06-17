@@ -51,20 +51,22 @@ progress-vault/
 │   └── tauri.conf.json  
 │  
 ├── src/                                ← Svelte Frontend  
-│   ├── app.html                        ← Base HTML \+ default theme CSS variables  
+│   ├── app.html                        ← Base HTML \+ default theme CSS variables (colors, fonts, radii)  
 │   ├── routes/  
 │   │   ├── \+layout.js                  ← SvelteKit SPA mode config  
-│   │   └── \+page.svelte                ← App shell: view routing, theme init, goal state  
+│   │   └── \+page.svelte                ← App shell: view transitions ({\#key}), navbar, goal state, grid with flip/fade  
 │   ├── components/  
-│   │   ├── GoalCard.svelte             ← Dashboard card (FR-02, FR-08, FR-09, FR-12)  
-│   │   ├── GoalDetail.svelte           ← Detail modal (FR-03, FR-04, FR-05, FR-07, FR-08)  
-│   │   ├── CreateGoalModal.svelte      ← Goal creation modal (FR-01, FR-06)  
-│   │   ├── ConfigScreen.svelte         ← Theme settings screen (FR-10, FR-11)  
-│   │   └── DashboardConfig.svelte      ← Dashboard sort/filter/info modal (FR-13)  
+│   │   ├── WelcomeScreen.svelte         ← Envelope flap home screen (FR-09), animated Goals button  
+│   │   ├── EyePair.svelte               ← Interactive mouse-following eyes (decorative, welcome screen)  
+│   │   ├── GoalCard.svelte              ← Dashboard card (FR-02, FR-08, FR-09, FR-12), progress bar, completed-state styling  
+│   │   ├── GoalDetail.svelte            ← Detail modal (FR-03, FR-04, FR-05, FR-07, FR-08)  
+│   │   ├── CreateGoalModal.svelte       ← Goal creation modal (FR-01, FR-06)  
+│   │   ├── ConfigScreen.svelte          ← Theme settings screen (FR-10, FR-11)  
+│   │   └── DashboardView.svelte         ← Sort/filter/info modal (FR-13) — renamed from DashboardConfig  
 │   └── lib/  
-│       ├── api.js                      ← Tauri invoke wrappers  
-│       ├── themes.js                   ← Theme definitions \+ applyTheme()  
-│       └── dashboardPrefs.js           ← Sort/filter logic \+ option constants  
+│       ├── api.js                       ← Tauri invoke wrappers  
+│       ├── themes.js                    ← Theme overrides (dark, etc.) \+ applyTheme()  
+│       └── dashboardPrefs.js            ← Sort/filter logic, completed-goals-sink-to-bottom rule  
 │  
 ├── .gitignore  
 ├── package.json  
@@ -113,9 +115,23 @@ The implementation followed the same layered, bottom-up approach as Iteration 1,
 
 **Step 11 — Theme propagation fix** Files: all component `<style>` blocks Purpose: Replace all hardcoded color values (`white`, `#ccc`, `#f0f0f0`, etc.) with CSS custom property references so all themes apply correctly across every component
 
+**Step 12 — Welcome screen redesign.** Files: WelcomeScreen.svelte (nuevo), \+page.svelte. Purpose: rebuild welcome screen around Figma envelope-flap design; Goals button animates to its exact navbar position using getBoundingClientRect()-based coordinate matching.
+
+**Step 13 — View transition system.** File: \+page.svelte. Purpose: wrap all view switches (welcome/goals/config) in `{#key currentView}` with in/out fade; navbar persists in DOM (hidden via opacity) so its coordinates are always readable for the button animation; reverse animation on Home click.
+
+Step 14 — Decorative eyes. File: EyePair.svelte (nuevo). Purpose: interactive mouse-following eyes in the welcome screen placeholder box, ported from a React reference, lerp-smoothed via requestAnimationFrame.
+
+Step 15 — Progress bar. Files: GoalCard.svelte, GoalDetail.svelte. Purpose: vertical fill-style bar for Numeric goals; horizontal bar for Numeric in detail view; completed-state styling (entire card turns green) for Simple, Numeric, and Checklist when fully done.
+
+**Step 16 — Card reordering on completion.** File: dashboardPrefs.js. Purpose: completed goals sink to the bottom of the visible list regardless of active sort, implemented as a secondary sort key in applyPrefs().
+
+**Step 17 — Card animations.** File: \+page.svelte. Purpose: `animate:flip` \+ `transition:fade` on the goals grid for smooth reordering and entry/exit instead of instant snaps.
+
 ---
 
 ### 5.2 Completed Work
+
+## **5.2 Completed Work**
 
 **Backend — Cleanup**
 
@@ -136,33 +152,48 @@ The implementation followed the same layered, bottom-up approach as Iteration 1,
 * FR-08: `remove_subtask` command — removes sub-task by id, progress recalculated equally  
 * FR-12: `toggle_goal_completion` command — toggles `completed: Option<bool>` on Simple goals
 
-**Frontend**
+**Frontend — Foundation**
 
-* `app.html` — default theme variables declared in `<head>` as CSS source of truth; prevents flash on cold start  
+* `app.html` — default theme variables declared in `<head>` as CSS source of truth (colors, radii, `--border-width`); Inter for body text, JetBrains Mono (`--font-heading`) for h1–h3; prevents flash on cold start  
 * `lib/themes.js` — `applyTheme()` injects a `<style id="pv-theme">` tag into `<head>`; clears it when reverting to default; non-default themes defined as JS objects (no external CSS files)  
-* `lib/dashboardPrefs.js` — sort/filter option constants and pure `applyPrefs()` function; no Svelte dependency, fully portable  
+* `lib/dashboardPrefs.js` — sort/filter option constants and pure `applyPrefs()` function; completed goals sink to the bottom of the visible list via secondary sort key, regardless of active sort; no Svelte dependency, fully portable  
 * `lib/api.js` — added `addSubtask()`, `removeSubtask()`, `toggleGoalCompletion()`, `getConfig()`, `setConfig()`  
-* `+page.svelte` — view routing (`welcome / goals / config`), theme init on `onMount`, `$derived` for `visibleGoals`, `DashboardConfig` modal wired to sort/filter state  
-* `GoalCard.svelte` — FR-12 toggle button (visible on hover for Simple goals); all hardcoded colors replaced with CSS variables  
-* `GoalDetail.svelte` — FR-07/FR-08 sub-task editor in edit mode; all hardcoded colors replaced with CSS variables  
-* `CreateGoalModal.svelte` — all hardcoded colors replaced with CSS variables  
+* New CSS variables: `--color-success`, `--color-success-hover`, `--color-success-border`, `--color-progress-bg`, `--color-progress-fill` — used for completed-state styling and progress indicators across themes
+
+**Frontend — Welcome screen & navigation**
+
+* `WelcomeScreen.svelte` (new) — envelope-flap design (SVG path), centered Goals button, settings gear (bottom-right, rotates on hover)  
+* `EyePair.svelte` (new) — decorative mouse-following eyes inside the welcome screen placeholder, lerp-smoothed motion via `requestAnimationFrame`  
+* Goals button animates to its exact navbar position on click, using `getBoundingClientRect()` on both source and target — no guessed offsets  
+* `+page.svelte` — full view transition system: all views (welcome / goals / config) wrapped in `{#key currentView}` with in/out fade; navbar persists in the DOM (hidden via opacity/visibility, not removed) so its real coordinates are always available for the button animation; reverse animation plays when returning to welcome via the Home button  
+* Fixed navbar \+ scrollable `.container` with `scrollbar-gutter`/padding compensation so card grid stays centered regardless of scrollbar presence
+
+**Frontend — Goal cards & detail**
+
+* `GoalCard.svelte` — FR-12 toggle button, redesigned as centered "Done" button for Simple goals; vertical fill-style progress bar for Numeric goals; entire card switches to success-state styling when a goal is fully completed (Simple, Numeric, or Checklist); custom-styled checkboxes for Checklist sub-tasks; `animate:flip` \+ `transition:fade` on the dashboard grid for smooth reordering and entry/exit  
+* `GoalDetail.svelte` — FR-07/FR-08 sub-task editor in edit mode, with themed Add/Remove buttons (accent/danger colors); horizontal progress bar for Numeric in detail view; all hardcoded colors replaced with CSS variables  
+* `CreateGoalModal.svelte` — all hardcoded colors replaced with CSS variables
+
+**Frontend — Settings & dashboard view**
+
 * `ConfigScreen.svelte` — theme picker, immediate apply on click (no Save button), `currentTheme` prop drives active state  
-* `DashboardConfig.svelte` — Sort (newest / oldest / by type), Status filter (All / Pending / Completed), Type filter (All / Simple / Numeric / Checklist), app version display
+* `DashboardView.svelte` (renamed from `DashboardConfig.svelte`) — Sort (newest / oldest / by type), Status filter (All / Pending / Completed), Type filter (All / Simple / Numeric / Checklist), app version display; navbar button relabeled "View"
 
 ---
 
 ### 5.3 Iteration 2 Status: Closed
 
-All planned FRs/NFRs for Iteration 2 (FR-07 through FR-13, NFR-09, NFR-10, NFR-11) are implemented and functional end-to-end.
+All planned FRs/NFRs for Iteration 2 (FR-07 through FR-13, NFR-09, NFR-10, NFR-11) are implemented and functional end-to-end. A full visual polish pass (welcome screen redesign, theme system hardening, progress indicators, card animations) was completed afterward on the `iteration-2/ui-polish` branch. 
 
 ---
 
 ### 5.4 Deferred to Iteration 3
 
-* Progress bar / percentage indicator on GoalCard (visual polish)  
-* Dashboard Config renamed from "Config" to "View" (navbar label)  
-* Goals navbar "Config" button functionality beyond sort/filter (TBD in planning)  
-* Reading app version dynamically from `Cargo.toml` via Tauri command instead of hardcoded constant
+* Drag-and-drop manual reordering of goal cards (requires backend `order` field \+ `reorder_goals` command; evaluated and intentionally postponed)  
+* Character/mascot customization — multiple mouth options, rounded box container, color customization for the creature on the welcome screen  
+* Second "Config" screen specific to the Goals view (distinct from the current "View" sort/filter modal) — concept mentioned, not yet scoped  
+* Reading app version dynamically from `Cargo.toml` via a Tauri command instead of a hardcoded constant  
+* Resolve outstanding Svelte a11y warnings (dialog role tabindex, click-without-keydown handlers) and `state_referenced_locally` warning in `GoalDetail.svelte`
 
 ---
 

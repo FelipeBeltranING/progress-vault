@@ -1,5 +1,6 @@
 <script>
   import { setConfig } from '$lib/api.js';
+  import { fade } from 'svelte/transition';
 
   /** @type {{ currentTheme: string, onSave: (theme: string) => void, onBack: () => void }} */
   let { currentTheme, onSave, onBack } = $props();
@@ -24,7 +25,7 @@
   }
 </script>
 
-<div class="config-screen">
+<div class="config-screen" transition:fade={{ duration: 350 }}>
   <div class="header">
     <button class="back-btn" onclick={onBack}>← Back</button>
     <h1>Settings</h1>
