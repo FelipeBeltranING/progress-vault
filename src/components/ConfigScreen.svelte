@@ -10,6 +10,7 @@
     { id: 'dark',    label: 'Dark',    description: 'Easy on the eyes' },
     { id: 'rosewood', label: 'Rosewood', description: 'Like pressed flowers on paper' },
     { id: 'deep-ocean', label: 'Deep Ocean', description: 'Deep navy tones with soft blue accents' },
+    { id: 'paper', label: 'Paper', description: 'Warm paper tones with a notebook feel' },
   ];
 
   let error = $state('');
@@ -140,6 +141,7 @@
   .theme-swatch--dark    { background: #1a1a1a; border-color: #444444; }
   .theme-swatch--rosewood { background: #fff0f3; border-color: #c4687a; }
   .theme-swatch--deep-ocean { background: #0b1220; border-color: #4d7ff2; }
+  .theme-swatch--paper {background: #f7f3eb; border-color: #b38b63;}
   
   .theme-info {
     display: flex;

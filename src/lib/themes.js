@@ -117,6 +117,46 @@ export const THEMES = {
   '--eyes-bg':    '#ffffff',
   '--eyes-pupil': '#000f2a',
 },
+paper: {
+  '--color-bg':            '#f7f3eb',
+  '--color-bg-secondary':  '#efe7da',
+  '--color-bg-hover':      '#e7dccb',
+  '--color-surface':       '#fcfaf5',
+
+  '--color-border':        '#c9b79d',
+  '--color-border-muted':  '#d9ccb9',
+  '--color-border-accent': '#a8845c',
+
+  '--color-text':          '#3b342d',
+  '--color-text-muted':    '#6d645a',
+  '--color-text-subtle':   '#9d9285',
+
+  '--color-accent':        '#ede1cf',
+  '--color-accent-border': '#b38b63',
+
+  '--color-danger':        '#f5e3df',
+  '--color-danger-border': '#c66d67',
+  '--color-danger-text':   '#9c3e3e',
+
+  '--color-progress-bg':   '#e5d8c4',
+  '--color-progress-fill': '#a8845c',
+
+  '--color-success':        '#e7b97a',
+  '--color-success-hover':  '#ffcd88',
+  '--color-success-border': '#a8845c',
+
+  '--radius-card':  '14px',
+  '--radius-btn':   '999px',
+  '--radius-input': '10px',
+  '--radius-badge': '6px',
+
+  '--border-width': '1px',
+
+  '--font-base': "'Inter', system-ui, sans-serif",
+
+  '--eyes-bg':    '#ffffff',
+  '--eyes-pupil': '#4a3f34',
+},
 
 };
 /**
