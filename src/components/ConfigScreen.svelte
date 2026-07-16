@@ -9,8 +9,9 @@
     { id: 'default', label: 'Default', description: 'Clean light theme' },
     { id: 'dark',    label: 'Dark',    description: 'Easy on the eyes' },
     { id: 'rosewood', label: 'Rosewood', description: 'Like pressed flowers on paper' },
-    { id: 'deep-ocean', label: 'Deep Ocean', description: 'Deep navy tones with soft blue accents' },
+    { id: 'deep-ocean', label: 'Deep Ocean', description: 'Where the ocean meets the night' },
     { id: 'paper', label: 'Paper', description: 'Warm paper tones with a notebook feel' },
+    { id: 'forest', label: 'Forest', description: 'A quiet walk through the woods' },
   ];
 
   let error = $state('');
@@ -142,7 +143,9 @@
   .theme-swatch--rosewood { background: #fff0f3; border-color: #c4687a; }
   .theme-swatch--deep-ocean { background: #0b1220; border-color: #4d7ff2; }
   .theme-swatch--paper {background: #f7f3eb; border-color: #b38b63;}
-  
+  .theme-swatch--forest { background: #273629; border-color: #81ad74; }
+
+
   .theme-info {
     display: flex;
     flex-direction: column;

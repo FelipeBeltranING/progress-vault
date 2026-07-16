@@ -92,18 +92,18 @@ export const THEMES = {
   '--color-text-subtle':   '#6f82a5',
 
   '--color-accent':        '#16284a',
-  '--color-accent-border': '#4d7ff2',
+  '--color-accent-border': '#426ed4',
 
   '--color-danger':        '#2b1417',
   '--color-danger-border': '#b94a48',
   '--color-danger-text':   '#e97b7b',
 
   '--color-progress-bg':   '#1b2945',
-  '--color-progress-fill': '#4d7ff2',
+  '--color-progress-fill': '#4676c3',
 
-  '--color-success':        '#18304f',
-  '--color-success-hover':  '#22406b',
-  '--color-success-border': '#6d9dff',
+  '--color-success':        '#1e3e64',
+  '--color-success-hover':  '#2f568c',
+  '--color-success-border': '#4676c3',
 
   '--radius-card':  '14px',
   '--radius-btn':   '999px',
@@ -156,6 +156,46 @@ paper: {
 
   '--eyes-bg':    '#ffffff',
   '--eyes-pupil': '#4a3f34',
+},
+forest: {
+  '--color-bg':            '#273629',
+  '--color-bg-secondary':  '#324236',
+  '--color-bg-hover':      '#3c4f41',
+  '--color-surface':       '#2d3d31',
+
+  '--color-border':        '#6e9072',
+  '--color-border-muted':  '#557159',
+  '--color-border-accent': '#97c28a',
+
+  '--color-text':          '#f5f9f3',
+  '--color-text-muted':    '#c4d4c0',
+  '--color-text-subtle':   '#90a58b',
+
+  '--color-accent':        '#415845',
+  '--color-accent-border': '#81ad74',
+
+  '--color-danger':        '#432927',
+  '--color-danger-border': '#c97267',
+  '--color-danger-text':   '#efb1a8',
+
+  '--color-progress-bg':   '#415845',
+  '--color-progress-fill': '#97c28a',
+
+  '--color-success':        '#415845',
+  '--color-success-hover':  '#4d6852',
+  '--color-success-border': '#81ad74',
+
+  '--radius-card':  '14px',
+  '--radius-btn':   '999px',
+  '--radius-input': '10px',
+  '--radius-badge': '6px',
+
+  '--border-width': '1px',
+
+  '--font-base': "'Inter', system-ui, sans-serif",
+
+  '--eyes-bg':    '#ffffff',
+  '--eyes-pupil': '#1f2c22',
 },
 
 };
