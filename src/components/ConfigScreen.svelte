@@ -12,6 +12,7 @@
     { id: 'deep-ocean', label: 'Deep Ocean', description: 'Where the ocean meets the night' },
     { id: 'paper', label: 'Paper', description: 'Warm paper tones with a notebook feel' },
     { id: 'forest', label: 'Forest', description: 'A quiet walk through the woods' },
+    { id: 'sunset', label: 'Sunset', description: 'Like the sky before nightfall' },
   ];
 
   let error = $state('');
@@ -144,6 +145,7 @@
   .theme-swatch--deep-ocean { background: #0b1220; border-color: #4d7ff2; }
   .theme-swatch--paper {background: #f7f3eb; border-color: #b38b63;}
   .theme-swatch--forest { background: #273629; border-color: #81ad74; }
+  .theme-swatch--sunset { background: #2a1f22; border-color: #c97852; }
 
 
   .theme-info {
