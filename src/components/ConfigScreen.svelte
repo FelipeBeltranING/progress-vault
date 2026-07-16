@@ -8,6 +8,7 @@
   const THEMES = [
     { id: 'default', label: 'Default', description: 'Clean light theme' },
     { id: 'dark',    label: 'Dark',    description: 'Easy on the eyes' },
+    { id: 'rosewood', label: 'Rosewood', description: 'Like pressed flowers on paper' },
   ];
 
   let error = $state('');
@@ -136,6 +137,7 @@
 
   .theme-swatch--default { background: #ffffff; border-color: #cccccc; }
   .theme-swatch--dark    { background: #1a1a1a; border-color: #444444; }
+  .theme-swatch--rosewood {  background: #fff0f3; border-color: #c4687a;  }
 
   .theme-info {
     display: flex;

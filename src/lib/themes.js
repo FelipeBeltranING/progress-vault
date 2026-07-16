@@ -38,6 +38,45 @@ export const THEMES = {
 
     '--font-base': "'Inter', system-ui, sans-serif",
   },
+  rosewood: {
+  '--color-bg':            '#fff0f3',
+  '--color-bg-secondary':  '#fde0e6',
+  '--color-bg-hover':      '#fad0da',
+  '--color-surface':       '#fff5f7',
+
+  '--color-border':        '#c4687a',
+  '--color-border-muted':  '#f0b8c4',
+  '--color-border-accent': '#c4687a',
+
+  '--color-text':          '#2d1018',
+  '--color-text-muted':    '#7a3a48',
+  '--color-text-subtle':   '#b07080',
+
+  '--color-accent':        '#fde0e6',
+  '--color-accent-border': '#c4687a',
+  '--color-danger':        '#ffd0d0',
+  '--color-danger-border': '#cc2244',
+  '--color-danger-text':   '#aa1133',
+
+  '--color-progress-bg':   '#f0c0cc',
+  '--color-progress-fill': '#c4687a',
+
+  '--color-success':        '#f0b0c0',
+  '--color-success-hover':  '#e898ac',
+  '--color-success-border': '#a04060',
+
+  '--radius-card':  '12px',
+  '--radius-btn':   '999px',
+  '--radius-input': '8px',
+  '--radius-badge': '4px',
+
+  '--border-width': '2px',
+
+  '--font-base': "'Inter', system-ui, sans-serif",
+
+  '--eyes-bg': '#e4e4e4',
+  '--eyes-pupil': '#000000',
+},
 };
 /**
  * Applies a theme by injecting a <style> tag into <head>.
