@@ -9,6 +9,7 @@
     { id: 'default', label: 'Default', description: 'Clean light theme' },
     { id: 'dark',    label: 'Dark',    description: 'Easy on the eyes' },
     { id: 'rosewood', label: 'Rosewood', description: 'Like pressed flowers on paper' },
+    { id: 'deep-ocean', label: 'Deep Ocean', description: 'Deep navy tones with soft blue accents' },
   ];
 
   let error = $state('');
@@ -137,8 +138,9 @@
 
   .theme-swatch--default { background: #ffffff; border-color: #cccccc; }
   .theme-swatch--dark    { background: #1a1a1a; border-color: #444444; }
-  .theme-swatch--rosewood {  background: #fff0f3; border-color: #c4687a;  }
-
+  .theme-swatch--rosewood { background: #fff0f3; border-color: #c4687a; }
+  .theme-swatch--deep-ocean { background: #0b1220; border-color: #4d7ff2; }
+  
   .theme-info {
     display: flex;
     flex-direction: column;

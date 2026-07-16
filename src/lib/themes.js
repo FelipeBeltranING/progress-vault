@@ -74,9 +74,50 @@ export const THEMES = {
 
   '--font-base': "'Inter', system-ui, sans-serif",
 
-  '--eyes-bg': '#e4e4e4',
+  '--eyes-bg': '#ffffff',
   '--eyes-pupil': '#000000',
+  }, 
+  'deep-ocean': {
+  '--color-bg':            '#0b1220',
+  '--color-bg-secondary':  '#111a2e',
+  '--color-bg-hover':      '#17233d',
+  '--color-surface':       '#0f1728',
+
+  '--color-border':        '#2b4c7e',
+  '--color-border-muted':  '#1c2f52',
+  '--color-border-accent': '#6d9dff',
+
+  '--color-text':          '#f3f7ff',
+  '--color-text-muted':    '#a8bad9',
+  '--color-text-subtle':   '#6f82a5',
+
+  '--color-accent':        '#16284a',
+  '--color-accent-border': '#4d7ff2',
+
+  '--color-danger':        '#2b1417',
+  '--color-danger-border': '#b94a48',
+  '--color-danger-text':   '#e97b7b',
+
+  '--color-progress-bg':   '#1b2945',
+  '--color-progress-fill': '#4d7ff2',
+
+  '--color-success':        '#18304f',
+  '--color-success-hover':  '#22406b',
+  '--color-success-border': '#6d9dff',
+
+  '--radius-card':  '14px',
+  '--radius-btn':   '999px',
+  '--radius-input': '10px',
+  '--radius-badge': '6px',
+
+  '--border-width': '1px',
+
+  '--font-base': "'Inter', system-ui, sans-serif",
+
+  '--eyes-bg':    '#ffffff',
+  '--eyes-pupil': '#000f2a',
 },
+
 };
 /**
  * Applies a theme by injecting a <style> tag into <head>.
