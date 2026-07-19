@@ -68,8 +68,8 @@
 
 <style>
   .config-screen {
-    min-height: 100vh;
-    padding: 2rem;
+   height: 100vh;
+   padding: 2rem;
     background: var(--color-bg);
     color: var(--color-text);
     display: flex;
@@ -77,8 +77,45 @@
     gap: 2rem;
     max-width: 480px;
     margin: 0 auto;
+
+    overflow-y: auto;
+    scrollbar-gutter: stable;
   }
 
+  .section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+    position: relative;
+  }
+
+  .section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 12px;
+  bottom: -4px;   
+  height: 20px;   
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-bg)
+  );
+}
+
+.theme-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+}
+  
   .header {
     display: flex;
     align-items: center;
@@ -108,10 +145,37 @@
   }
 
   .theme-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+
+  padding-right: 10px;
+  scrollbar-width: none;
+}
+
+.theme-list::-webkit-scrollbar {
+  display: none;
+}
+
+.theme-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.theme-list::-webkit-scrollbar-thumb {
+  background: var(--color-border-muted);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.theme-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border);
+  background-clip: padding-box;
+}
 
   .theme-option {
     display: flex;
@@ -163,6 +227,7 @@
   .theme-label { font-weight: 600; font-size: 0.95rem; }
   .theme-desc { font-size: 0.8rem; color: var(--color-text-subtle); }
 
+  
   .checkmark {
     color: var(--color-accent-border);
     font-weight: 700;
