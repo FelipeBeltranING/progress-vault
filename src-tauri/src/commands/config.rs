@@ -13,7 +13,7 @@ pub fn get_config(app: AppHandle) -> Result<Config, String> {
 /// Validates that the theme name is one of the known bundled themes.
 #[tauri::command]
 pub fn set_config(app: AppHandle, theme: String) -> Result<Config, String> {
-    const VALID_THEMES: &[&str] = &["default", "dark"];
+    const VALID_THEMES: &[&str] = &["default", "dark", "rosewood", "deep-ocean", "paper","forest","sunset","garnet","aurora","lavender"];
 
     if !VALID_THEMES.contains(&theme.as_str()) {
         return Err(format!(
