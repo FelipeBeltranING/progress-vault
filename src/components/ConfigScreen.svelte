@@ -13,6 +13,9 @@
     { id: 'paper', label: 'Paper', description: 'Warm paper tones with a notebook feel' },
     { id: 'forest', label: 'Forest', description: 'A quiet walk through the woods' },
     { id: 'sunset', label: 'Sunset', description: 'Like the sky before nightfall' },
+    { id: 'garnet', label: 'Garnet', description: 'Like glowing embers beneath the ash' },
+    { id: 'aurora', label: 'Aurora', description: 'Like dancing lights across the night sky' },
+    { id: 'lavender', label: 'Lavender', description: 'Like lavender fields at sunset' },
   ];
 
   let error = $state('');
@@ -146,7 +149,9 @@
   .theme-swatch--paper {background: #f7f3eb; border-color: #b38b63;}
   .theme-swatch--forest { background: #273629; border-color: #81ad74; }
   .theme-swatch--sunset { background: #2a1f22; border-color: #c97852; }
-
+  .theme-swatch--garnet { background: #301416; border-color: #f05a45; }
+  .theme-swatch--aurora {background: #1b1d36;border-color: #5ed7b8;}
+  .theme-swatch--lavender {background: #f5f0fb;border-color: #8f6cc7;}
 
   .theme-info {
     display: flex;

@@ -118,7 +118,7 @@ export const THEMES = {
   '--eyes-pupil': '#000f2a',
 },
 paper: {
-  '--color-bg':            '#f7f3eb',
+  '--color-bg':            '#f7efde',
   '--color-bg-secondary':  '#efe7da',
   '--color-bg-hover':      '#e7dccb',
   '--color-surface':       '#fcfaf5',
@@ -236,6 +236,126 @@ sunset: {
 
   '--eyes-bg':    '#ffffff',
   '--eyes-pupil': '#2a1f22',
+},
+garnet: {
+  '--color-bg':            '#301517',
+  '--color-bg-secondary':  '#2b1b1d',
+  '--color-bg-hover':      '#382326',
+  '--color-surface':       '#251718',
+
+  '--color-border':        '#8f3e3e',
+  '--color-border-muted':  '#5c2b2d',
+  '--color-border-accent': '#d75a4a',
+
+  '--color-text':          '#fff4f2',
+  '--color-text-muted':    '#d7b7b3',
+  '--color-text-subtle':   '#9d7b77',
+
+  '--color-accent':        '#4a2427',
+  '--color-accent-border': '#c84a3a',
+
+  '--color-danger':        '#5b1818',
+  '--color-danger-border': '#f04b4b',
+  '--color-danger-text':   '#ffb1a7',
+
+  '--color-progress-bg':   '#4a2427',
+  '--color-progress-fill': '#d75a4a',
+
+  '--color-success':        '#4a2427',
+  '--color-success-hover':  '#5a2d31',
+  '--color-success-border': '#c84a3a',
+
+  '--radius-card':  '14px',
+  '--radius-btn':   '999px',
+  '--radius-input': '10px',
+  '--radius-badge': '6px',
+
+  '--border-width': '1px',
+
+  '--font-base': "'Inter', system-ui, sans-serif",
+
+  '--eyes-bg':    '#ffffff',
+  '--eyes-pupil': '#1f1415',
+},
+aurora: {
+  '--color-bg':            '#16182b',
+  '--color-bg-secondary':  '#1d2138',
+  '--color-bg-hover':      '#262b47',
+  '--color-surface':       '#1a1d33',
+
+  '--color-border':        '#4f8d8d',
+  '--color-border-muted':  '#355d63',
+  '--color-border-accent': '#5ed7b8',
+
+  '--color-text':          '#f7f8ff',
+  '--color-text-muted':    '#bcc6dd',
+  '--color-text-subtle':   '#8d99b6',
+
+  '--color-accent':        '#2a3352',
+  '--color-accent-border': '#7f7dff',
+
+  '--color-danger':        '#432734',
+  '--color-danger-border': '#cf6d8b',
+  '--color-danger-text':   '#f2a9be',
+
+  '--color-progress-bg':   '#2a3352',
+  '--color-progress-fill': '#5ed7b8',
+
+  '--color-success':        '#233b46',
+  '--color-success-hover':  '#2b4b58',
+  '--color-success-border': '#5ed7b8',
+
+  '--radius-card':  '14px',
+  '--radius-btn':   '999px',
+  '--radius-input': '10px',
+  '--radius-badge': '6px',
+
+  '--border-width': '1px',
+
+  '--font-base': "'Inter', system-ui, sans-serif",
+
+  '--eyes-bg':    '#ffffff',
+  '--eyes-pupil': '#16182b',
+},
+lavender: {
+  '--color-bg':            '#e7d4ff',
+  '--color-bg-secondary':  '#ece3f8',
+  '--color-bg-hover':      '#e4d8f4',
+  '--color-surface':       '#fbf8fe',
+
+  '--color-border':        '#b393d3',
+  '--color-border-muted':  '#d7c3eb',
+  '--color-border-accent': '#8f6cc7',
+
+  '--color-text':          '#2f243f',
+  '--color-text-muted':    '#6e5c88',
+  '--color-text-subtle':   '#9d8bb8',
+
+  '--color-accent':        '#ece3f8',
+  '--color-accent-border': '#8f6cc7',
+
+  '--color-danger':        '#f8dfe7',
+  '--color-danger-border': '#cb6f91',
+  '--color-danger-text':   '#a84f74',
+
+  '--color-progress-bg':   '#ddd0ef',
+  '--color-progress-fill': '#8f6cc7',
+
+  '--color-success':        '#ddd0ef',
+  '--color-success-hover':  '#d2c1ea',
+  '--color-success-border': '#8f6cc7',
+
+  '--radius-card':  '14px',
+  '--radius-btn':   '999px',
+  '--radius-input': '10px',
+  '--radius-badge': '6px',
+
+  '--border-width': '1px',
+
+  '--font-base': "'Inter', system-ui, sans-serif",
+
+  '--eyes-bg':    '#ffffff',
+  '--eyes-pupil': '#2f243f',
 },
 
 };
