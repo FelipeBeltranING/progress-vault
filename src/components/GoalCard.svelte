@@ -56,7 +56,7 @@
 
     {#if goal.goal_type === 'simple'}
       <button class="toggle-simple" onclick={handleToggleCompletion}>
-        {goal.completed ? 'Done' : 'Done'}
+        {goal.completed ? 'Done' : 'Mark as done'}
       </button>
 
     {:else if goal.goal_type === 'numeric'}

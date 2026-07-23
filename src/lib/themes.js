@@ -37,6 +37,9 @@ export const THEMES = {
     '--border-width': '2px',
 
     '--font-base': "'Inter', system-ui, sans-serif",
+
+    '--eyes-bg': '#ffffff',
+'--eyes-pupil': '#0f0f0f',
   },
   rosewood: {
   '--color-bg':            '#fff0f3',

@@ -106,15 +106,7 @@
   );
 }
 
-.theme-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 
-  overflow-y: auto;
-  min-height: 0;
-  flex: 1;
-}
   
   .header {
     display: flex;

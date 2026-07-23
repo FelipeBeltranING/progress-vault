@@ -472,5 +472,4 @@ async function handleRemoveSubtask(subtaskId) {
   transform: scale(1.04);
 }
 
-.remove-subtask-btn { margin-left: auto; font-size: 0.85rem; }
 </style>
